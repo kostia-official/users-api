@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  # The database service is used for data storage. The database files are stored
+  # locally inside of the project and could easily be cleaned-up if needed.
+  db:
+    image: postgres:10-alpine
+    container_name: db
+    restart: on-failure
+    init: true
+    ports:
+      - 5434:5432
+    volumes:
+      - ./pg_init:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: supersecret
+      POSTGRES_DB: memeization-nest
+      POSTGRES_HOST_AUTH_METHOD: trust
